@@ -1,0 +1,137 @@
+/* HapticNav — home.css */
+
+/* Estilos de la pantalla de inicio y selección de rol del usuario */
+
+/* Contenedor principal centrado y responsivo que ocupa la altura de la ventana */
+.home-container {
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Caja principal con fondo, borde y sombra usada para la selección de rol */
+.home-box {
+  width: 100%;
+  max-width: 440px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+  padding: 42px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  animation: fadeUp .4s ease;
+}
+
+/* Título principal de la pantalla con marca y efecto */
+.home-title {
+  font-family: var(--font-disp);
+  font-size: 2.05rem;
+  font-weight: 900;
+  letter-spacing: .18em;
+  text-align: center;
+  color: var(--amber);
+  text-shadow: 0 0 20px rgba(245,166,35,.4);
+  line-height: 1.15;
+}
+
+/* Subtítulo descriptivo en mayúsculas */
+.home-sub {
+  text-align: center;
+  color: var(--text-dim);
+  letter-spacing: .1em;
+  font-size: 1rem;
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+
+/* Agrupador vertical de botones de rol */
+.role-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+/* Botones de rol con estilo llamativo y feedback visual */
+.role-btn {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  color: var(--text);
+  font-family: var(--font-disp);
+  font-weight: 700;
+  font-size: .9rem;
+  letter-spacing: .12em;
+  padding: 16px;
+  cursor: pointer;
+  transition: all .18s;
+  text-transform: uppercase;
+  box-shadow: 0 0 12px rgba(245,166,35,.10);
+}
+
+.role-btn:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+  box-shadow: 0 0 18px rgba(245,166,35,.18);
+}
+
+.role-btn:active {
+  transform: scale(.97);
+}
+
+/* Ajustes para pantallas medianas a pequeñas */
+@media (max-width: 700px) {
+  .home-container {
+    padding: 16px;
+  }
+
+  .home-box {
+    max-width: 100%;
+    padding: 44px 26px;
+    gap: 30px;
+  }
+
+  .home-title {
+    font-size: 2.35rem;
+    line-height: 1.15;
+  }
+
+  .home-sub {
+    font-size: 1.08rem;
+    line-height: 1.45;
+  }
+
+  .role-buttons {
+    gap: 16px;
+  }
+
+  .role-btn {
+    font-size: 1.1rem;
+    padding: 19px 16px;
+  }
+}
+
+/* Ajustes para pantallas muy pequeñas */
+@media (max-width: 400px) {
+  .home-box {
+    padding: 36px 20px;
+  }
+
+  .home-title {
+    font-size: 2.08rem;
+  }
+
+  .home-sub {
+    font-size: .98rem;
+  }
+
+  .role-btn {
+    font-size: 1rem;
+    padding: 17px 14px;
+  }
+}

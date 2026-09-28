@@ -1,0 +1,600 @@
+/* HapticNav — index.css */
+
+/* Estilos para la interfaz de navegación y visualización de indicaciones */
+
+/* Layout principal de la vista de navegación */
+.navigator-page #nav-ui {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+}
+
+/* Barra de estado con indicadores y acciones */
+.route-status-bar {
+  justify-content: space-between;
+}
+
+/* Controles del encabezado y acciones rápidas */
+.route-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+/* Panel central que muestra la flecha y la indicación actual */
+.direction-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 20px;
+  gap: 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Destello sutil detrás del panel para énfasis visual */
+.direction-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 45%, rgba(245,166,35,.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Banner de alerta para avisos críticos */
+.alert-banner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: var(--red);
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  font-family: var(--font-disp);
+  font-size: .9rem;
+  letter-spacing: .1em;
+  font-weight: 700;
+  animation: blink .6s ease infinite;
+}
+
+@keyframes blink {
+  50% { opacity: .6; }
+}
+
+/* Contenedor de la flecha y etiqueta direccional */
+.arrow-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Icono flecha grande con efecto de brillo */
+.arrow-icon {
+  font-size: 7rem;
+  line-height: 1;
+  color: var(--amber);
+  text-shadow: 0 0 40px rgba(245,166,35,.6), 0 0 80px rgba(245,166,35,.2);
+  transition: all .35s cubic-bezier(.34,1.56,.64,1);
+  user-select: none;
+}
+
+.arrow-icon.pulse-anim {
+  animation: arrowPulse .4s ease;
+}
+
+/* Animación de pulso usada por la flecha en transiciones */
+@keyframes arrowPulse {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+/* Texto que describe la maniobra actual */
+.direction-label {
+  font-family: var(--font-disp);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: .15em;
+  color: var(--text);
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.35;
+}
+
+/* Distancia restante hasta la siguiente instrucción */
+.distance-label {
+  font-size: 1rem;
+  color: var(--amber);
+  letter-spacing: .1em;
+}
+
+/* Fila de pastillas informativas */
+.pills-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Pastilla pequeña para opciones y estados */
+.pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 7px 13px;
+  font-size: .84rem;
+  letter-spacing: .1em;
+  color: var(--text-dim);
+  transition: all .3s;
+}
+
+.pill.active {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+.pill.active .pill-dot {
+  background: var(--amber);
+  box-shadow: 0 0 6px var(--amber);
+}
+
+/* Indicador circular dentro de la pastilla */
+.pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-dim);
+  flex-shrink: 0;
+}
+
+/* Pie con coordenadas y datos de navegación */
+.coords-footer {
+  display: flex;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.coords-footer-two .coord-item {
+  width: 50%;
+  flex: 0 0 50%;
+}
+
+.coord-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px 8px;
+  border-right: 1px solid var(--border);
+  gap: 5px;
+}
+
+.coord-item:last-child {
+  border-right: none;
+}
+
+/* Valor principal dentro del bloque de coordenadas */
+.coord-item span:last-child {
+  font-size: .98rem;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+/* Contenedor del botón de voz flotante */
+.voice-fab-wrapper {
+  position: fixed;
+  bottom: 86px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  z-index: 50;
+}
+
+/* Botón flotante para activar reconocimiento de voz */
+.voice-fab {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--amber);
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: transform .15s, box-shadow .2s, background .2s;
+  box-shadow: 0 4px 20px rgba(245,166,35,.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.voice-fab:active {
+  transform: scale(.95);
+}
+
+.voice-fab.listening {
+  animation: voicePulse .5s ease infinite alternate;
+  background: var(--red);
+  box-shadow: 0 0 30px rgba(255,59,59,.7);
+}
+
+.voice-fab-wrapper.voice-active .voice-fab-label {
+  color: var(--red);
+}
+
+@keyframes voicePulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
+
+.voice-fab-label {
+  font-size: .78rem;
+  letter-spacing: .1em;
+  color: var(--text-dim);
+}
+
+/* Rejilla de destinos predefinidos */
+.preset-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.preset-btn {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: .94rem;
+  line-height: 1.4;
+  padding: 12px 10px;
+  cursor: pointer;
+  transition: all .2s;
+  min-height: 58px;
+}
+
+.preset-btn:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+.preset-btn.selected {
+  border-color: var(--amber);
+  color: var(--amber);
+  box-shadow: 0 0 18px rgba(245,166,35,.25);
+}
+
+.selected-destination {
+  margin-top: 6px;
+  text-align: center;
+  color: var(--amber);
+  font-size: .92rem;
+  letter-spacing: .06em;
+  line-height: 1.45;
+}
+
+.manual-fields {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Vista de previsualización de la ruta */
+.preview-screen {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+  background: var(--bg);
+}
+
+/* Contenido desplazable de la pantalla de previsualización */
+.preview-main {
+  flex: 1;
+  padding: 16px 16px 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  min-height: 0;
+}
+
+.preview-destination-name {
+  font-family: var(--font-disp);
+  font-size: 1.28rem;
+  color: var(--amber);
+  letter-spacing: .08em;
+  margin-bottom: 8px;
+  line-height: 1.35;
+}
+
+.preview-destination-coords {
+  font-size: .94rem;
+  color: var(--text-dim);
+  line-height: 1.45;
+}
+
+.preview-steps {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Elemento que representa un paso de la ruta en la previsualización */
+.preview-step-item {
+  padding: 13px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  color: var(--text);
+  font-size: .96rem;
+  line-height: 1.5;
+}
+
+.preview-start-btn {
+  margin-top: 8px;
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+}
+
+.setup-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Overlay usado al pausar la navegación */
+.route-pause-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(10, 10, 12, 0.92);
+}
+
+/* Caja interior del overlay de pausa con acciones */
+.route-pause-box {
+  width: 100%;
+  max-width: 420px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+  padding: 34px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  text-align: center;
+}
+
+.route-pause-icon {
+  font-size: 3rem;
+  color: var(--amber);
+}
+
+.route-pause-title {
+  font-family: var(--font-disp);
+  font-size: 1.55rem;
+  letter-spacing: .16em;
+  color: var(--amber);
+  margin-top: 4px;
+}
+
+.route-pause-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Ajustes responsivos para pantallas medianas */
+@media (max-width: 700px) {
+  .route-header-actions {
+    width: 100%;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .direction-panel {
+    padding: 24px 16px 22px;
+    gap: 24px;
+  }
+
+  .alert-banner {
+    font-size: .9rem;
+    padding: 9px;
+  }
+
+  .arrow-icon {
+    font-size: 7.6rem;
+  }
+
+  .direction-label {
+    font-size: 1.38rem;
+    line-height: 1.35;
+  }
+
+  .distance-label {
+    font-size: 1.06rem;
+  }
+
+  .pill {
+    font-size: .9rem;
+    padding: 8px 13px;
+  }
+
+  .coord-item {
+    padding: 15px 8px;
+    gap: 5px;
+  }
+
+  .coord-item span:last-child {
+    font-size: 1.06rem;
+  }
+
+  .voice-fab-wrapper {
+    bottom: 88px;
+    right: 16px;
+  }
+
+  .voice-fab {
+    width: 70px;
+    height: 70px;
+    font-size: 1.9rem;
+  }
+
+  .voice-fab-label {
+    font-size: .82rem;
+  }
+
+  .preset-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .preset-btn {
+    font-size: .98rem;
+    padding: 14px 11px;
+    min-height: 62px;
+  }
+
+  .selected-destination {
+    font-size: .96rem;
+  }
+
+  .preview-main {
+    padding: 14px 14px 22px;
+    gap: 12px;
+  }
+
+  .preview-destination-name {
+    font-size: 1.32rem;
+  }
+
+  .preview-destination-coords {
+    font-size: .98rem;
+  }
+
+  .preview-step-item {
+    font-size: .98rem;
+    padding: 14px;
+    line-height: 1.5;
+  }
+
+  .route-pause-box {
+    padding: 30px 22px;
+    gap: 20px;
+  }
+
+  .route-pause-title {
+    font-size: 1.4rem;
+  }
+}
+
+/* Ajustes responsivos para pantallas pequeñas */
+@media (max-width: 400px) {
+  .route-header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .arrow-icon {
+    font-size: 6.6rem;
+  }
+
+  .direction-label {
+    font-size: 1.2rem;
+  }
+
+  .distance-label {
+    font-size: .98rem;
+  }
+
+  .pill {
+    font-size: .82rem;
+    padding: 7px 11px;
+  }
+
+  .coord-item {
+    min-width: 50%;
+    padding: 13px 6px;
+  }
+
+  .coord-item span:last-child {
+    font-size: .94rem;
+  }
+
+  .voice-fab {
+    width: 64px;
+    height: 64px;
+    font-size: 1.7rem;
+  }
+
+  .voice-fab-label {
+    font-size: .74rem;
+  }
+
+  .preset-btn {
+    font-size: .92rem;
+    min-height: 56px;
+  }
+
+  .selected-destination {
+    font-size: .9rem;
+  }
+
+  .preview-destination-name {
+    font-size: 1.18rem;
+  }
+
+  .preview-destination-coords,
+  .preview-step-item {
+    font-size: .92rem;
+  }
+
+  .route-pause-box {
+    padding: 26px 18px;
+    gap: 18px;
+  }
+
+  .route-pause-title {
+    font-size: 1.22rem;
+    letter-spacing: .12em;
+  }
+}
+
+.route-pause-text {
+  color: var(--text);
+  font-size: .96rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 700px) {
+  .route-pause-text {
+    font-size: .92rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .route-pause-text {
+    font-size: .86rem;
+  }
+}

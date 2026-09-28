@@ -1,0 +1,185 @@
+<!-- HapticNav — index.html -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Metadatos y enlaces a estilos usados en la app -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>HapticNav — Navegador</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body class="navigator-page">
+  <!-- Vista navegador principal -->
+
+  <div id="setup-overlay" class="overlay active">
+    <!-- Overlay de configuración y selección de destino -->
+    <div class="overlay-box">
+      <!-- Encabezado con marca y subtítulo -->
+      <div class="logo-mark">◈</div>
+      <h1 class="brand">HAPTICNAV</h1>
+      <p class="brand-sub">NAVEGACIÓN SIN MIRAR</p>
+
+      <div class="field-group">
+        <label for="room-input">CÓDIGO DE SALA</label>
+        <input id="room-input" type="text" maxlength="8" placeholder="ej. SALA01" autocomplete="off" spellcheck="false" />
+        <div id="room-error" class="field-error hidden">Introduce un código de sala.</div>
+      </div>
+
+      <div class="field-group">
+        <label>DESTINO</label>
+
+        <!-- Destinos predefinidos para selección rápida -->
+        <div class="preset-grid">
+          <button class="preset-btn" type="button" data-lat="40.55166" data-lng="-4.01202">
+            Polideportivo Colmenarejo
+          </button>
+          <button class="preset-btn" type="button" data-lat="40.69502" data-lng="-4.06918">
+            Eva's Blooms
+          </button>
+          <button class="preset-btn" type="button" data-lat="40.59477" data-lng="-4.12905">
+            Dia El Escorial
+          </button>
+          <button class="preset-btn" type="button" data-lat="40.54298" data-lng="-4.01115">
+            Parking UC3M Colmenarejo
+          </button>
+        </div>
+
+        <div id="selected-destination" class="selected-destination">
+          Ningún destino seleccionado
+        </div>
+
+        <div id="destination-error" class="field-error hidden">
+          Selecciona un destino predefinido o introduce coordenadas manuales válidas.
+        </div>
+
+        <button id="toggle-manual-btn" class="btn-secondary" type="button">
+          Usar coordenadas manuales
+        </button>
+      </div>
+
+      <!-- Campos para introducir coordenadas manuales -->
+      <div id="manual-destination-fields" class="manual-fields hidden">
+        <div class="field-group">
+          <label for="dest-lat">LATITUD DESTINO</label>
+          <input id="dest-lat" type="number" step="any" placeholder="40.416775" />
+          <div id="dest-lat-error" class="field-error hidden">Introduce una latitud válida.</div>
+        </div>
+
+        <div class="field-group">
+          <label for="dest-lng">LONGITUD DESTINO</label>
+          <input id="dest-lng" type="number" step="any" placeholder="-3.703790" />
+          <div id="dest-lng-error" class="field-error hidden">Introduce una longitud válida.</div>
+        </div>
+      </div>
+
+      <!-- Botones de acción -->
+      <div class="setup-actions">
+        <button id="start-btn" class="btn-primary">CONFIRMAR DESTINO</button>
+        <a href="/home.html" class="btn-ghost">← VOLVER</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="preview-screen" class="hidden preview-screen">
+    <!-- Pantalla de previsualización de destino -->
+    <header class="status-bar">
+      <span class="room-tag" id="preview-room-tag"></span>
+      <button id="back-btn" class="btn-stop">← VOLVER</button>
+    </header>
+
+    <main class="preview-main">
+      <section class="comp-card">
+        <h2 class="card-title">DESTINO CONFIRMADO</h2>
+        <div id="preview-destination-name" class="preview-destination-name">—</div>
+        <div id="preview-destination-coords" class="preview-destination-coords">—</div>
+      </section>
+
+      <section class="comp-card">
+        <h2 class="card-title">INSTRUCCIONES DE USO ANTES DE INICIAR LA RUTA</h2>
+        <ul id="preview-steps" class="preview-steps"></ul>
+      </section>
+
+      <button id="begin-route-btn" class="btn-primary preview-start-btn">
+        INICIAR TRAYECTO
+      </button>
+    </main>
+  </div>
+
+  <div id="nav-ui" class="hidden">
+    <!-- Interfaz de navegación en tiempo real -->
+    <header class="status-bar route-status-bar">
+      <span id="conn-dot" class="dot dot-off"></span>
+      <span id="conn-label">Desconectado</span>
+      <span class="room-tag" id="room-tag"></span>
+      <div class="route-header-actions">
+        <button id="route-back-btn" class="btn-stop" type="button">← VOLVER</button>
+        <button id="stop-btn" class="btn-stop" type="button">■ PARAR</button>
+      </div>
+    </header>
+
+    <!-- Panel de dirección y flecha principal -->
+    <main class="direction-panel">
+      <div id="alert-banner" class="alert-banner hidden"></div>
+
+      <div class="arrow-container">
+        <div id="arrow-icon" class="arrow-icon">—</div>
+        <div id="direction-label" class="direction-label">ESPERANDO GPS…</div>
+        <div id="distance-label" class="distance-label"></div>
+      </div>
+
+      <!-- Indicadores de estado y opciones rápidas -->
+      <div class="pills-row">
+        <div class="pill" id="pill-gps">
+          <span class="pill-dot"></span> GPS
+        </div>
+        <div class="pill" id="pill-voice">
+          <span class="pill-dot"></span> VOZ
+        </div>
+      </div>
+    </main>
+
+    <footer class="coords-footer coords-footer-two">
+      <div class="coord-item"><span class="coord-lbl">FALTA</span><span id="dist-val">—</span></div>
+      <div class="coord-item"><span class="coord-lbl">TIEMPO</span><span id="time-val">—</span></div>
+    </footer>
+
+    <!-- Contenedor del botón de voz flotante y etiqueta -->
+    <div id="voice-fab-wrapper" class="voice-fab-wrapper">
+      <button id="voice-btn" class="voice-fab" type="button" title="Activar voz">🎙</button>
+      <span class="voice-fab-label">VOCALIZA</span>
+    </div>
+  </div>
+
+  <div id="pause-overlay" class="route-pause-overlay hidden">
+    <!-- Overlay de pausa de ruta -->
+    <div class="route-pause-box">
+      <div class="route-pause-icon">⏸</div>
+      <h2 class="route-pause-title">RUTA PAUSADA</h2>
+      <div class="route-pause-actions">
+        <button id="resume-btn" class="btn-primary" type="button">REANUDAR</button>
+        <button id="finish-btn" class="btn-ghost" type="button">FINALIZAR</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="recalculating-overlay" class="route-pause-overlay hidden">
+    <!-- Overlay de recálculo de ruta -->
+    <div class="route-pause-box">
+      <div class="route-pause-icon">↻</div>
+      <h2 class="route-pause-title">RECALCULANDO RUTA</h2>
+      <p class="route-pause-text">
+        Estamos calculando un nuevo recorrido desde tu posición actual.
+      </p>
+    </div>
+  </div>
+
+  <!-- Scripts: socket y lógica de la app -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

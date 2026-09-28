@@ -1,0 +1,323 @@
+/* HapticNav — companion.css */
+
+/* Estilos para la vista acompañante que muestra mapa y estado del navegador */
+
+/* Layout de la vista companion que ocupa toda la ventana */
+.companion-page #comp-ui {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+}
+
+/* Contenedor principal con scroll para contenidos del acompañante */
+.companion-main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Acciones de configuración y control usadas por el acompañante */
+.setup-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.setup-actions > * {
+  width: 100%;
+}
+
+.setup-actions .btn-ghost {
+  display: block;
+}
+
+/* Banner que aparece cuando la sala está vacía */
+.empty-room-banner {
+  border-color: var(--red);
+  background: rgba(255,59,59,.08);
+}
+
+.empty-room-text {
+  color: #fff;
+  font-size: .95rem;
+  line-height: 1.45;
+}
+
+/* Tarjeta que muestra la indicación principal para el acompañante */
+.direction-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 170px;
+  text-align: center;
+}
+
+/* Flecha grande usada para la indicación */
+.comp-arrow {
+  font-size: 5.5rem;
+  line-height: 1;
+  color: var(--amber);
+  text-shadow: 0 0 30px rgba(245,166,35,.5);
+  margin-bottom: 10px;
+}
+
+.comp-dir-label {
+  font-family: var(--font-disp);
+  font-size: 1rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* Rejilla de mensajes rápidos para uso del navegador */
+.quick-msg-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+/* Botones rápidos que envía el acompañante */
+.quick-msg-btn {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  color: var(--text);
+  font-family: var(--font-disp);
+  font-size: .82rem;
+  letter-spacing: .08em;
+  padding: 14px 10px;
+  cursor: pointer;
+  transition: all .18s;
+  text-transform: uppercase;
+}
+
+.quick-msg-btn:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+  box-shadow: 0 0 16px rgba(245,166,35,.25);
+}
+
+/* Grid con mapa y paneles de información */
+.comp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+/* Contenedor del mapa */
+.comp-map {
+  width: 100%;
+  height: 260px;
+  border-radius: var(--r);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+/* Fila con coordenadas y valores asociados */
+.comp-coord {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+.comp-coord:last-of-type {
+  border-bottom: none;
+}
+
+/* Timestamp o texto de soporte pequeño */
+.c-ts {
+  margin-top: 10px;
+  font-size: .78rem;
+  color: var(--text-dim);
+}
+
+/* Indicador de estado (parado, error, llegado) */
+.state-indicator {
+  margin-top: 8px;
+  padding: 10px 12px;
+  border-radius: var(--r);
+  text-align: center;
+  font-family: var(--font-disp);
+  font-size: .75rem;
+  letter-spacing: .08em;
+  border: 1px solid var(--border);
+  background: var(--bg3);
+  color: var(--text-dim);
+}
+
+.state-off {
+  opacity: .65;
+}
+
+.state-on-stop {
+  background: rgba(56,190,255,.12);
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.state-on-wrong {
+  background: rgba(255,59,59,.12);
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.state-on-arrived {
+  background: rgba(57,255,20,.12);
+  border-color: var(--green);
+  color: var(--green);
+}
+
+/* Tarjeta con registro de eventos del acompañante */
+.log-card {
+  min-height: 150px;
+}
+
+.event-log {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.event-log li {
+  padding: 10px 12px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  font-size: .78rem;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+.ev-info {
+  border-left: 3px solid var(--blue);
+}
+
+.ev-ok {
+  border-left: 3px solid var(--green);
+}
+
+.ev-warn {
+  border-left: 3px solid var(--red);
+}
+
+/* Ajustes visuales del contenedor Leaflet */
+.leaflet-container {
+  background: #111;
+  font-family: var(--font-mono);
+}
+
+/* Ajustes responsivos para pantallas medianas */
+@media (max-width: 700px) {
+  .companion-main {
+    padding: 14px;
+    gap: 12px;
+  }
+
+  .comp-card {
+    padding: 16px;
+  }
+
+  .card-title {
+    font-size: .92rem;
+  }
+
+  .comp-arrow {
+    font-size: 5.8rem;
+  }
+
+  .comp-dir-label {
+    font-size: 1.08rem;
+    line-height: 1.35;
+  }
+
+  .quick-msg-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quick-msg-btn {
+    font-size: .9rem;
+    padding: 15px 12px;
+  }
+
+  .comp-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .comp-map {
+    height: 280px;
+  }
+
+  .comp-coord {
+    font-size: .92rem;
+    padding: 10px 0;
+  }
+
+  .c-ts {
+    font-size: .86rem;
+  }
+
+  .state-indicator {
+    font-size: .84rem;
+    padding: 11px 12px;
+  }
+
+  .event-log {
+    max-height: 220px;
+  }
+
+  .event-log li {
+    font-size: .88rem;
+    padding: 11px 12px;
+    line-height: 1.4;
+  }
+}
+
+/* Ajustes responsivos para pantallas pequeñas */
+@media (max-width: 400px) {
+  .comp-arrow {
+    font-size: 4.8rem;
+  }
+
+  .comp-dir-label {
+    font-size: .96rem;
+  }
+
+  .comp-map {
+    height: 240px;
+  }
+
+  .card-title {
+    font-size: .86rem;
+  }
+
+  .comp-coord,
+  .c-ts,
+  .state-indicator,
+  .event-log li,
+  .quick-msg-btn {
+    font-size: .82rem;
+  }
+}
+
+/* Error visual de campo en companion */
+.input-error {
+  border-color: var(--red) !important;
+  box-shadow: 0 0 0 1px rgba(255,59,59,.25);
+}
+
+.field-error {
+  color: var(--red);
+  font-size: .88rem;
+  line-height: 1.35;
+}

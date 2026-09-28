@@ -1,0 +1,462 @@
+/* HapticNav — style.css */
+
+/* Estilos globales y variables de tema usados en toda la aplicación */
+
+/* Importa las tipografías usadas en toda la app */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap');
+
+:root {
+  /* Variables de tema: colores, fuentes, radios y sombras */
+  --bg:        #0a0a0c;
+  --bg2:       #10101a;
+  --bg3:       #181824;
+  --amber:     #f5a623;
+  --amber-dim: #7a5010;
+  --green:     #39ff14;
+  --red:       #ff3b3b;
+  --blue:      #38beff;
+  --text:      #e8e0cc;
+  --text-dim:  #6e6a5e;
+  --border:    #2a2820;
+  --font-mono: 'Share Tech Mono', monospace;
+  --font-disp: 'Orbitron', monospace;
+  --r:         6px;
+  --shadow:    0 0 24px rgba(245,166,35,0.08);
+}
+
+/* Reset y box sizing para comportamiento consistente entre navegadores */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Regla base para html y body, define tipografía y fondo principal */
+html, body {
+  height: 100%;
+  width: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 16px;
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
+}
+
+.hidden { display: none !important; }
+
+/* Capa visual que añade patrón sutil sobre el fondo de la app */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0,0,0,0.04) 0px,
+    rgba(0,0,0,0.04) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+}
+
+/* Contenedor overlay usado para modales y pantallas de configuración */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--bg);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.overlay.active { display: flex; }
+
+/* Caja interior del overlay con sombra y padding consistente */
+.overlay-box {
+  width: 100%;
+  max-width: 440px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 38px 30px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: fadeUp .4s ease;
+  margin: auto;
+}
+
+/* Animación simple para elevar y desvanecer cajas modales */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Marca gráfica con animación usada en cabeceras y pantallas */
+.logo-mark {
+  font-size: 3rem;
+  color: var(--amber);
+  text-align: center;
+  animation: pulse 2s ease infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: .5; }
+}
+
+/* Estilo del nombre de la aplicación con fuente display y efectos */
+.brand {
+  font-family: var(--font-disp);
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: .18em;
+  text-align: center;
+  color: var(--amber);
+  text-shadow: 0 0 20px rgba(245,166,35,.4);
+}
+
+/* Subtítulo de marca con texto descriptivo en mayúsculas */
+.brand-sub {
+  text-align: center;
+  color: var(--text-dim);
+  letter-spacing: .12em;
+  font-size: .98rem;
+  text-transform: uppercase;
+  line-height: 1.45;
+}
+
+/* Agrupador de campos de formulario con label y input */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Estilo de las etiquetas de formulario en color de acento */
+.field-group label {
+  font-size: .82rem;
+  letter-spacing: .12em;
+  color: var(--amber);
+  text-transform: uppercase;
+}
+
+/* Inputs de formulario con fondo oscuro y borde sutil */
+.field-group input {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 1.02rem;
+  padding: 12px 14px;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+  width: 100%;
+}
+
+.field-group input:focus {
+  border-color: var(--amber);
+}
+
+.field-group input::placeholder {
+  color: var(--text-dim);
+}
+
+/* Estilos para inputs con error visual */
+.input-error {
+  border-color: var(--red) !important;
+  box-shadow: 0 0 0 1px rgba(255,59,59,.25);
+}
+
+/* Mensajes de error asociados a campos de formulario */
+.field-error {
+  color: var(--red);
+  font-size: .88rem;
+  line-height: 1.35;
+}
+
+/* Botón primario de acción con color destacado y hover */
+.btn-primary {
+  background: var(--amber);
+  color: #000;
+  border: none;
+  border-radius: var(--r);
+  font-family: var(--font-disp);
+  font-weight: 700;
+  font-size: .95rem;
+  letter-spacing: .12em;
+  padding: 14px;
+  cursor: pointer;
+  transition: transform .1s, box-shadow .2s;
+  text-transform: uppercase;
+}
+
+.btn-primary:hover  { box-shadow: 0 0 20px rgba(245,166,35,.5); }
+.btn-primary:active { transform: scale(.97); }
+
+/* Botón secundario con borde y estilo neutro */
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--amber-dim);
+  border-radius: var(--r);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: .95rem;
+  padding: 11px 12px;
+  cursor: pointer;
+  transition: all .2s;
+}
+
+.btn-secondary:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+/* Botón fantasma para acciones menos importantes */
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: .92rem;
+  padding: 11px 12px;
+  cursor: pointer;
+  transition: all .2s;
+  text-decoration: none;
+  text-align: center;
+}
+
+.btn-ghost:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+/* Texto de ayuda o hint utilizado en formularios y pantallas */
+.hint {
+  text-align: center;
+  font-size: .84rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+/* Barra de estado superior con indicadores y acciones */
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 18px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  font-size: .98rem;
+  letter-spacing: .08em;
+  flex-shrink: 0;
+}
+
+/* Indicador redondo pequeño usado para estado de conexión */
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dot-off { background: var(--text-dim); }
+.dot-on  { background: var(--green); box-shadow: 0 0 6px var(--green); }
+
+/* Etiqueta que muestra el identificador de sala */
+.room-tag {
+  margin-left: auto;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 4px 9px;
+  font-size: .86rem;
+  letter-spacing: .1em;
+  color: var(--amber);
+}
+
+.btn-stop {
+  background: transparent;
+  border: 1px solid var(--red);
+  border-radius: 4px;
+  color: var(--red);
+  font-family: var(--font-mono);
+  font-size: .88rem;
+  padding: 6px 11px;
+  cursor: pointer;
+  transition: background .15s;
+  letter-spacing: .08em;
+}
+
+.btn-stop:hover { background: rgba(255,59,59,.15); }
+
+/* Tarjeta genérica con sombra usada en varias pantallas */
+.comp-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
+
+.card-title {
+  font-family: var(--font-disp);
+  font-size: 1rem;
+  letter-spacing: .12em;
+  color: var(--amber);
+  margin-bottom: 12px;
+}
+
+.coord-lbl {
+  font-size: .8rem;
+  color: var(--amber);
+  letter-spacing: .12em;
+}
+
+/* Personalización mínima de scroll para WebKit */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+@media (max-width: 700px) {
+  .overlay {
+    align-items: flex-start;
+    justify-content: center;
+    padding: max(12px, env(safe-area-inset-top)) 16px 16px 16px;
+  }
+
+  .overlay-box {
+    max-width: 100%;
+    padding: 30px 22px;
+    gap: 20px;
+    margin: 0 auto;
+  }
+
+  .logo-mark {
+    font-size: 3.2rem;
+  }
+
+  .brand {
+    font-size: 2.1rem;
+    letter-spacing: .12em;
+  }
+
+  .brand-sub {
+    font-size: 1.02rem;
+  }
+
+  .field-group label {
+    font-size: .86rem;
+  }
+
+  .field-group input {
+    font-size: 1.04rem;
+    padding: 13px 14px;
+  }
+
+  .btn-primary {
+    font-size: .98rem;
+    padding: 14px;
+  }
+
+  .btn-secondary,
+  .btn-ghost {
+    font-size: .94rem;
+    padding: 12px 12px;
+  }
+
+  .hint {
+    font-size: .9rem;
+  }
+
+  .status-bar {
+    font-size: 1rem;
+    padding: 12px 14px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .room-tag {
+    font-size: .9rem;
+    padding: 4px 8px;
+  }
+
+  .btn-stop {
+    font-size: .9rem;
+    padding: 6px 10px;
+  }
+
+  .comp-card {
+    padding: 16px;
+  }
+
+  .card-title {
+    font-size: 1rem;
+  }
+
+  .coord-lbl {
+    font-size: .82rem;
+  }
+
+  .field-error {
+    font-size: .92rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .overlay {
+    padding: max(10px, env(safe-area-inset-top)) 14px 14px 14px;
+  }
+
+  .overlay-box {
+    padding: 24px 18px;
+    gap: 16px;
+  }
+
+  .logo-mark {
+    font-size: 2.9rem;
+  }
+
+  .brand {
+    font-size: 1.85rem;
+    letter-spacing: .08em;
+  }
+
+  .brand-sub {
+    font-size: .92rem;
+  }
+
+  .field-group input {
+    font-size: 1rem;
+    padding: 12px 13px;
+  }
+
+  .btn-primary,
+  .btn-secondary,
+  .btn-ghost {
+    font-size: .9rem;
+    padding: 11px 12px;
+  }
+
+  .hint {
+    font-size: .84rem;
+  }
+
+  .status-bar {
+    font-size: .9rem;
+  }
+
+  .coord-lbl {
+    font-size: .76rem;
+  }
+
+  .field-error {
+    font-size: .88rem;
+  }
+}

@@ -1,0 +1,56 @@
+<!-- HapticNav — home.html -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Metadatos y estilos de la pantalla home -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HapticNav — Selección de rol</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="home.css">
+</head>
+
+<body>
+
+  <!-- Pantalla de selección de rol -->
+  <div class="home-container">
+
+    <div class="home-box">
+
+      <!-- Marca visual de la app -->
+      <div class="logo-mark">
+        🧭
+      </div>
+
+      <div class="home-title">
+        HAPTICNAV
+      </div>
+
+      <div class="home-sub">
+        Selecciona tu rol en el sistema
+      </div>
+
+      <!-- Opciones para elegir rol de usuario -->
+      <div class="role-buttons">
+
+        <button class="role-btn" onclick="goNavigator()">
+          📍 Usuario principal
+        </button>
+
+        <button class="role-btn" onclick="goCompanion()">
+          👁 Acompañante
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Script de navegación desde home -->
+  <script src="home.js"></script>
+
+</body>
+</html>

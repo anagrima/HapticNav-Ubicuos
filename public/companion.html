@@ -1,0 +1,109 @@
+<!-- HapticNav — companion.html -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Metadatos y estilos para la vista acompañante -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HapticNav — Acompañante</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="companion.css" />
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+</head>
+<body class="companion-page">
+  <!-- Vista acompañante principal -->
+
+  <div id="setup-overlay" class="overlay active">
+    <!-- Overlay para unir al acompañante -->
+    <div class="overlay-box">
+      <div class="logo-mark">◉</div>
+      <h1 class="brand">HAPTICNAV</h1>
+      <p class="brand-sub">VISTA ACOMPAÑANTE</p>
+
+      <div class="field-group">
+        <label for="room-input">CÓDIGO DE SALA</label>
+        <input id="room-input" type="text" maxlength="8" placeholder="ej. SALA01" autocomplete="off" spellcheck="false" />
+        <div id="room-error" class="field-error hidden">Introduce un código de sala</div>
+      </div>
+
+      <div class="setup-actions">
+        <button id="join-btn" class="btn-primary">UNIRSE COMO ACOMPAÑANTE</button>
+        <a href="/home.html" class="btn-ghost">← VOLVER</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="comp-ui" class="hidden">
+    <!-- Interfaz del acompañante con mapa y estado -->
+    <header class="status-bar">
+      <span id="conn-dot" class="dot dot-off"></span>
+      <span id="conn-label">Desconectado</span>
+      <span class="room-tag" id="room-tag"></span>
+      <button id="exit-btn" class="btn-stop">← SALIR</button>
+    </header>
+
+    <main class="companion-main">
+
+      <section id="empty-room-banner" class="comp-card empty-room-banner hidden">
+        <h2 class="card-title">SALA VACÍA</h2>
+        <div class="empty-room-text">No hay nadie en esta sala.</div>
+      </section>
+
+      <!-- Panel de indicación principal para el acompañante -->
+      <section class="comp-card direction-card">
+        <h2 class="card-title">PRÓXIMA INDICACIÓN</h2>
+        <div id="comp-arrow" class="comp-arrow">—</div>
+        <div id="comp-dir-label" class="comp-dir-label">Sin datos</div>
+      </section>
+
+      <section class="comp-card">
+        <h2 class="card-title">MENSAJES RÁPIDOS</h2>
+        <!-- Botones de envío rápido hacia el navegador -->
+        <div class="quick-msg-grid">
+          <button class="quick-msg-btn" data-message="Ten cuidado">TEN CUIDADO</button>
+          <button class="quick-msg-btn" data-message="Para un momento">PARA UN MOMENTO</button>
+          <button class="quick-msg-btn" data-message="Todo correcto">TODO CORRECTO</button>
+          <button class="quick-msg-btn" data-message="Te llamo ahora">TE LLAMO AHORA</button>
+        </div>
+      </section>
+
+      <section class="comp-card">
+        <h2 class="card-title">MAPA</h2>
+        <!-- Contenedor del mapa interactivo Leaflet -->
+        <div id="map" class="comp-map"></div>
+      </section>
+
+      <div class="comp-grid">
+        <section class="comp-card">
+          <h2 class="card-title">POSICIÓN</h2>
+          <div class="comp-coord"><span class="coord-lbl">LAT</span><span id="c-lat">—</span></div>
+          <div class="comp-coord"><span class="coord-lbl">LNG</span><span id="c-lng">—</span></div>
+          <div id="c-ts" class="c-ts">Sin señal GPS</div>
+        </section>
+
+        <section class="comp-card">
+          <h2 class="card-title">ESTADO</h2>
+          <div id="state-stopped" class="state-indicator state-off">DETENIDO</div>
+          <div id="state-wrong" class="state-indicator state-off">RUTA ERRÓNEA</div>
+          <div id="state-arrived" class="state-indicator state-off">LLEGÓ</div>
+        </section>
+      </div>
+
+      <!-- Registro de eventos y alertas del acompañante -->
+      <section class="comp-card log-card">
+        <h2 class="card-title">REGISTRO</h2>
+        <ul id="event-log" class="event-log"></ul>
+      </section>
+    </main>
+  </div>
+
+  <!-- Leaflet y lógica del acompañante -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="companion.js"></script>
+</body>
+</html>
