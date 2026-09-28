@@ -1,4 +1,8 @@
-🧭 HapticNav, por Alicia Mei García Morín, Laura Guerrero Canales y Ana Grima Vázquez de Prada
+# HapticNav-Ubicuos
+
+Autoras Alicia Mei García Morín, Laura Guerrero Canales y Ana Grima Vázquez de Prada
+
+## 🧭 HapticNav
 > Prototipo de navegación peatonal háptica basado en geolocalización, comandos de voz y modo acompañante en tiempo real.
 
 
